@@ -8,6 +8,7 @@ from .models import Day
 
 class Index(generic.ListView):
     model = Day
+    paginate_by = 3
 
 # def index(request):
 #     context = {
@@ -19,6 +20,7 @@ class Index(generic.ListView):
 class AddView(generic.CreateView):
     model = Day
     form_class = DayCreateForm
+    #fields = '__all__'
     success_url = reverse_lazy("diary:index")
 
 # def add(request):
@@ -33,39 +35,52 @@ class AddView(generic.CreateView):
 #     }
 #     return render(request, 'diary/day_form.html', context)
 
-def update(request,pk):
-    day = get_object_or_404(Day, pk=pk)
-
-    form = DayCreateForm(request.POST or None, instance=day)
-
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('diary:index')
-
-    context = {
-        'form':form
-    }
-    return render(request, 'diary/day_form.html', context)
-
-def delete(request,pk):
-    day = get_object_or_404(Day, pk=pk)
+class UpdateView(generic.UpdateView):
+    model = Day
+    form_class = DayCreateForm
+    success_url = reverse_lazy('diary:index')
 
 
-    if request.method == 'POST' :
-        day.delete()
-        return redirect('diary:index')
+# def update(request,pk):
+#     day = get_object_or_404(Day, pk=pk)
 
-    context = {
-        'day':day,
-    }
-    return render(request, 'diary/day_confirm_delete.html', context)
+#     form = DayCreateForm(request.POST or None, instance=day)
 
-def detail(request,pk):
-    day = get_object_or_404(Day, pk=pk)
+#     if request.method == 'POST' and form.is_valid():
+#         form.save()
+#         return redirect('diary:index')
 
-    context = {
-        'day':day,
-    }
-    return render(request, 'diary/day_detail.html', context)
+#     context = {
+#         'form':form
+#     }
+#     return render(request, 'diary/day_form.html', context)
+
+class DeleteView(generic.DeleteView):
+    model = Day
+    success_url = reverse_lazy('diary:index')
+
+# def delete(request,pk):
+#     day = get_object_or_404(Day, pk=pk)
+
+
+#     if request.method == 'POST' :
+#         day.delete()
+#         return redirect('diary:index')
+
+#     context = {
+#         'day':day,
+#     }
+#     return render(request, 'diary/day_confirm_delete.html', context)
+
+class DetailView(generic.DetailView):
+    model = Day
+
+# def detail(request,pk):
+#     day = get_object_or_404(Day, pk=pk)
+
+#     context = {
+#         'day':day,
+#     }
+#     return render(request, 'diary/day_detail.html', context)
 
 
