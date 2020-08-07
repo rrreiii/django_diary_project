@@ -1,0 +1,26 @@
+{% extends 'diary/base.html' %}
+
+{% block content %}
+<h1>入力フォーム </h1>
+<form action='' method='POST'>
+	<table class='table'>
+		<tr>
+			<th>{{form.title.label}}</th>
+			<td>{{form.title}}</td>
+		</tr>
+		<tr>
+			<th>{{form.text.label}}</th>
+			<td>{{form.text}}</td>
+		</tr>
+		<tr>
+			<th>{{form.date.label}}</th>
+			<td>{{form.date}}</td>
+		</tr>
+	</table>
+	<button type='submit' class="btn btn-primary">送信</button>
+	{% csrf_token %}
+</form>
+
+
+
+{% endblock%}
