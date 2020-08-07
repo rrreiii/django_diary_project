@@ -18,6 +18,11 @@
     <nav class="nav">
       <a class="nav-link active" href="{% url 'diary:index' %}">一覧</a>
       <a class="nav-link" href="{% url 'diary:add' %}">追加</a>
+      {% if user.is_superuser %}
+      <a class="nav-link" href="{% url 'admin:diary_day_add' %}" target="_blank">モデル追加</a>
+      {% comment %} <a class="nav-link" href="{% url 'admin:diary_day_change'day.pk %}" target="_blank">モデル更新</a>
+      <a class="nav-link" href="{% url 'admin:diary_day_delete'day.pk %}" target="_blank">モデル削除</a> {% endcomment %}
+      {% endif %}
     </nav>
 
     {% block content %}
