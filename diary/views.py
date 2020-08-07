@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.urls import reverse_lazy
 from .forms import DayCreateForm
@@ -55,7 +56,7 @@ class UpdateView(generic.UpdateView):
 #     }
 #     return render(request, 'diary/day_form.html', context)
 
-class DeleteView(generic.DeleteView):
+class DeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Day
     success_url = reverse_lazy('diary:index')
 
